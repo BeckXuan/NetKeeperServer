@@ -18,10 +18,17 @@ import java.net.Socket
 
 class ServerSocketService : Service() {
 
-    private val targetIP = "192.168.51.80"
-    private val localPort = 60666
-    private val simSlotIndex = 0 // 0为卡一，1为卡二
+    // 填写对应的电脑IP，用于鉴权
+    // 若无需限制对应IP，则留空即可
+    private val targetIP = "192.168.0.6"
 
+    // 开放的端口号，对应NetKeeperHelper的phone_port参数
+    private val localPort = 60666
+
+    // 选择发送短信的手机卡
+    private val simSlotIndex = 0 // 0为卡一，1为卡二，单卡默认0
+
+    // 以下无需修改
     private var isRun = true
     private var isOpen = false
     private var curSocket: Socket? = null
