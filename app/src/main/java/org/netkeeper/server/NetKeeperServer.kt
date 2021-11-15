@@ -62,7 +62,7 @@ class ServerSocketService : Service() {
             channelId,
             channelName, NotificationManager.IMPORTANCE_LOW
         )
-        notificationChannel.enableLights(true)
+        notificationChannel.enableLights(false)
         notificationChannel.setShowBadge(true)
         notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
 
@@ -195,12 +195,10 @@ class ServerSocketService : Service() {
     private fun respondAndClose(socket: Socket?, message: String) {
         Thread {
             try {
-                if (socket?.isClosed == false) {
-                    val bufferOut =
-                        BufferedWriter(OutputStreamWriter(socket.getOutputStream()))
-                    bufferOut.write(message)
-                    bufferOut.flush()
-                }
+                val bufferOut =
+                    BufferedWriter(OutputStreamWriter(socket!!.getOutputStream()))
+                bufferOut.write(message)
+                bufferOut.flush()
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
